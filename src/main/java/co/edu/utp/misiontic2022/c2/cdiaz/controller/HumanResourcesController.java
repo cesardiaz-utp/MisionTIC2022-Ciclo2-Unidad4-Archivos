@@ -1,6 +1,6 @@
 package co.edu.utp.misiontic2022.c2.cdiaz.controller;
 
-import java.sql.SQLException;
+import java.io.IOException;
 import java.util.List;
 
 import co.edu.utp.misiontic2022.c2.cdiaz.model.dao.DepartmentDao;
@@ -18,19 +18,19 @@ public class HumanResourcesController {
         this.employeeDao = new EmployeeDao();
     }
 
-    public List<Department> findAllDepartments() throws SQLException {
+    public List<Department> findAllDepartments() throws IOException {
         return departmentDao.findAll();
     }
 
-    public List<Employee> findAllEmployees() throws SQLException {
+    public List<Employee> findAllEmployees() throws ClassNotFoundException, IOException {
         return employeeDao.findAll();
     }
 
-    public Employee findEmployee(Integer id) throws SQLException {
+    public Employee findEmployee(Integer id) throws ClassNotFoundException, IOException {
         return employeeDao.findById(id);
     }
 
-    public Employee createEmployee(String name, String email, Integer departmentId) throws SQLException {
+    public Employee createEmployee(String name, String email, Integer departmentId) throws ClassNotFoundException, IOException {
         var employee = new Employee();
         employee.setName(name);
         employee.setEmail(email);
@@ -41,7 +41,7 @@ public class HumanResourcesController {
         return employee;
     }
 
-    public Employee updateEmployee(Integer id, String name, String email, Integer departmentId) throws SQLException {
+    public Employee updateEmployee(Integer id, String name, String email, Integer departmentId) throws ClassNotFoundException, IOException {
         var employee = new Employee();
         employee.setId(id);
         employee.setName(name);

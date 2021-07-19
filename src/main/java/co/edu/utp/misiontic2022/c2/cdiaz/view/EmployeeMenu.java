@@ -3,7 +3,6 @@ package co.edu.utp.misiontic2022.c2.cdiaz.view;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.sql.SQLException;
 
 import co.edu.utp.misiontic2022.c2.cdiaz.controller.HumanResourcesController;
 import co.edu.utp.misiontic2022.c2.cdiaz.model.vo.Department;
@@ -168,7 +167,7 @@ public class EmployeeMenu {
             } else {
                 System.out.println("\nNo se encontró el empleado en base de datos");
             }
-        } catch (SQLException | NumberFormatException | IOException e) {
+        } catch (ClassNotFoundException | NumberFormatException | IOException e) {
             System.err.println("Ha ocurrido un error: " + e.getMessage());
         }
         InputUtilities.waitForEnter(input);
@@ -188,7 +187,7 @@ public class EmployeeMenu {
             } else {
                 System.out.println("\nNo hay empleados en base de datos");
             }
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException e) {
             System.err.println("Ha ocurrido un error: " + e.getMessage());
         }
         InputUtilities.waitForEnter(input);
@@ -204,7 +203,7 @@ public class EmployeeMenu {
             for (Department department : departments) {
                 System.out.printf("%d\t%s %n", department.getId(), department.getName());
             }
-        } catch (SQLException e) {
+        } catch (IOException e) {
             System.err.println("Ha ocurrido un error: " + e.getMessage());
         }
     }

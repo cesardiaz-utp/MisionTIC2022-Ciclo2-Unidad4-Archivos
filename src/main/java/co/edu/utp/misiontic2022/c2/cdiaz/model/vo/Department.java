@@ -1,6 +1,8 @@
 package co.edu.utp.misiontic2022.c2.cdiaz.model.vo;
 
-public class Department {
+import java.io.Serializable;
+
+public class Department implements Serializable {
     private Integer id;
     private String name;
     

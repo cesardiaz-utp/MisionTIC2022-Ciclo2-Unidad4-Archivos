@@ -1,6 +1,8 @@
 package co.edu.utp.misiontic2022.c2.cdiaz.model.vo;
 
-public class Employee {
+import java.io.Serializable;
+
+public class Employee implements Serializable {
     private Integer id;
     private String name;
     private String email;

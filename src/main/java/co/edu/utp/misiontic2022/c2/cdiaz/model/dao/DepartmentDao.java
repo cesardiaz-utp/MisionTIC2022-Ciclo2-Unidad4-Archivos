@@ -1,40 +1,49 @@
 package co.edu.utp.misiontic2022.c2.cdiaz.model.dao;
 
-import java.sql.SQLException;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import co.edu.utp.misiontic2022.c2.cdiaz.model.vo.Department;
-import co.edu.utp.misiontic2022.c2.cdiaz.util.JDBCUtilities;
 
 public class DepartmentDao {
 
-    public List<Department> findAll() throws SQLException {
+    private final String FILE_NAME = "departments.txt";
+
+    public List<Department> findAll() throws IOException {
         var response = new ArrayList<Department>();
-        try (var connection = JDBCUtilities.getConnection()) {
-            var statement = connection.prepareStatement("select * from departments");
-            var rset = statement.executeQuery();
-            while (rset.next()) {
+        try (var br = new BufferedReader(new FileReader(FILE_NAME))) {
+            String line = br.readLine();
+            while (line != null) {
+                var data = line.split(";");
+
                 var department = new Department();
-                department.setId(rset.getInt("ID"));
-                department.setName(rset.getString("NAME"));
+                department.setId(Integer.valueOf(data[0]));
+                department.setName(data[1]);
                 response.add(department);
+
+                line = br.readLine();
             }
         }
         return response;
     }
 
-    public Department findById(Integer id) throws SQLException {
+    public Department findById(Integer id) throws IOException {
         Department response = null;
-        try (var connection = JDBCUtilities.getConnection()) {
-            var statement = connection.prepareStatement("select * from departments where id = ?");
-            statement.setInt(1, id);
-            
-            var rset = statement.executeQuery();
-            if (rset.next()) {
-                response = new Department();
-                response.setId(rset.getInt("ID"));
-                response.setName(rset.getString("NAME"));
+        try (var br = new BufferedReader(new FileReader(FILE_NAME))) {
+            String line = br.readLine();
+            while (line != null) {
+                var data = line.split(";");
+                if (Integer.valueOf(data[0]).equals(id)) {
+                    response = new Department();
+                    response.setId(Integer.valueOf(data[0]));
+                    response.setName(data[1]);
+                    break;
+                }
+
+                line = br.readLine();
             }
         }
         return response;
